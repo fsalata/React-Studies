@@ -4,7 +4,9 @@ import SearchBar from '../containers/search-bar';
 export default class App extends Component {
   render() {
     return (
-      <SearchBar />
+      <div className="container" style={{paddingTop: '20px'}} >
+        <SearchBar />
+      </div>
     );
   }
 }
