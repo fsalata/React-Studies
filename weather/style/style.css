@@ -1,0 +1,13 @@
+th, td {
+    vertical-align: middle !important;
+    text-align: center !important;
+}
+
+td:first-of-type, td:first-of-type > div {
+    width: 250px;
+    height: 200px;
+}
+
+svg {
+    height: 150px;
+}
