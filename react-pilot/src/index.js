@@ -1,14 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+// import { PersistGate } from 'redux-persist/integration/react';
 
-import store from './config/store';
+import createAppStore from './config/store';
 
-import Home from './screens/home';
+import Login from './screens/login';
+
+const { store } = createAppStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <Home />
+    <Login />
   </Provider>,
   document.querySelector('.container'),
 );

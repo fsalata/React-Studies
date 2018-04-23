@@ -6,8 +6,7 @@
   "repository": "git@github.com:StephenGrider/ReduxSimpleStarter.git",
   "scripts": {
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
-    "test":
-      "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
+    "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
     "test:watch": "npm run test -- --watch"
   },
   "author": "",
@@ -16,8 +15,8 @@
     "babel-core": "^6.2.1",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^6.2.0",
-    "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.1.18",
+    "babel-preset-flow": "^6.23.0",
     "babel-preset-react": "^6.1.18",
     "chai": "^3.5.0",
     "chai-jquery": "^2.0.0",
@@ -26,6 +25,7 @@
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
+    "flow-bin": "^0.70.0",
     "jquery": "^2.2.1",
     "jsdom": "^8.1.0",
     "mocha": "^2.4.5",
@@ -36,14 +36,17 @@
     "webpack-dev-server": "^1.14.0"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "babel-preset-stage-1": "^6.1.18",
     "lodash": "^3.10.1",
+    "prop-types": "^15.6.1",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-redux": "^4.3.0",
     "react-router": "^2.8.1",
     "redux": "^3.0.4",
     "redux-logger": "^3.0.6",
+    "redux-persist": "^5.9.1",
     "redux-saga": "^0.16.0"
   }
 }
