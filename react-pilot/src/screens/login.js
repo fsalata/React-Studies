@@ -4,17 +4,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getApiUsers } from '../actions/api';
+import { submitLogin, changeEmail, changePassword } from '../actions/userLogin';
+import { submitRegister } from '../actions/userRegister';
 
 class Login extends Component {
-  componentWillReceiveProps() {
-    if (this.props.apiResponse.length === 0 && !this.props.rehydrated) {
-      this.props.dispatch(getApiUsers());
-    }
+  componentDidMount() {
+    this.props.dispatch(submitRegister());
+    this.props.dispatch(changeEmail('bin@bin.com'));
+    this.props.dispatch(changePassword('123'));
+    this.props.dispatch(submitLogin());
   }
 
   render() {
-    if (!this.props.rehydrated) {
+    if (this.props.isLoading) {
       return <span> carregando </span>;
     }
 
@@ -31,14 +33,12 @@ class Login extends Component {
 Login.propTypes = {
   apiResponse: PropTypes.arrayOf(PropTypes.object),
   isLoading: PropTypes.bool,
-  rehydrated: PropTypes.bool,
   dispatch: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
   apiResponse: state.api.apiUsersResultData,
   isLoading: state.api.isLoading,
-  rehydrated: state._persist.rehydrated,
 });
 
 export default connect(mapStateToProps)(Login);
