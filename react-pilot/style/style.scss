@@ -4,14 +4,15 @@
   h1 {
     text-align: center;
   }
+}
 
-  .form-signin {
-    width: 100%;
-    max-width: 420px;
-    padding: 15px;
-    margin: auto;
-    padding-top: 50px;
-  }
+.form-signin,
+.form-register {
+  width: 100%;
+  max-width: 420px;
+  padding: 15px;
+  margin: auto;
+  padding-top: 50px;
 }
 
 .custom-text-input {
