@@ -1,15 +1,34 @@
-body .login {
+.login {
   padding-top: 40px;
 }
 
-body .login h1 {
+.login h1 {
   text-align: center;
 }
 
-body .login .form-signin {
+.login .form-signin {
   width: 100%;
   max-width: 420px;
   padding: 15px;
   margin: auto;
+  padding-top: 50px;
+}
+
+.custom-text-input small {
+  margin-top: 0;
+  height: 15px;
+}
+
+.backdrop {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal {
+  display: block;
 }
 /*# sourceMappingURL=style.css.map */

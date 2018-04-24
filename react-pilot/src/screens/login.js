@@ -1,34 +1,124 @@
 // @flow
 
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
 import TextInput from '../components/textInput';
+import Modal from '../components/modal';
 
 import { submitLogin, changeEmail, changePassword, cleanLoginMessages } from '../actions/userLogin';
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      emailError: null,
+      passwordError: null,
+    };
+  }
+
+  validateEmail = (text) => {
+    const reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    if (reg.test(text) === false) {
+      return false;
+    }
+    return true;
+  };
+
+  emailChangeHandler = (event) => {
+    const text = event.target.value;
+
+    this.props.changeEmail(text);
+    this.setState({
+      emailError:
+        this.validateEmail(this.props.email) === false && [...text].length > 3
+          ? 'E-mail inválido'
+          : null,
+    });
+  };
+
+  passwordChangeHandler = (event) => {
+    const text = event.target.value;
+
+    this.setState({ passwordError: null });
+
+    this.props.changePassword(text);
+  };
+
   handleLogin = (event) => {
     event.preventDefault();
+
+    let isValid = true;
+
+    this.setState({ emailError: null, passwordError: null });
+
+    if (this.props.email === null || this.props.email === '') {
+      isValid = false;
+      this.setState({ emailError: 'O e-mail é obrigatório' });
+    }
+    if (this.props.password === null || this.props.password === '') {
+      isValid = false;
+      this.setState({ passwordError: 'A senha é obrigatória' });
+    }
+
+    if (isValid) {
+      this.props.submitLogin();
+    }
+  };
+
+  closeModal = () => {
+    this.props.cleanLoginMessages();
   };
 
   render() {
-    if (this.props.isLoading) {
-      return <span> carregando </span>;
+    if (this.props.isSubmiting) {
+      return <span> carregando... </span>;
     }
 
     return (
-      <div className="login">
-        <h1>React Pilot</h1>
-        <div className="form-signin">
-          <form onSubmit={this.handleLogin}>
-            <TextInput type="email" placeholder="E-mail" error="errro" label="E-mail" />
-            <TextInput type="password" placeholder="E-mail" error="errro" label="Senha" />
-            <button type="submit" className="btn btn-primary btn-lg">
-              Login
-            </button>
-          </form>
+      <div>
+        {this.props.submitErrorMessage ? (
+          <Modal
+            title="Atenção"
+            message={this.props.submitErrorMessage}
+            closeTitle="Ok"
+            closeAction={this.closeModal}
+          />
+        ) : null}
+        {this.props.submitSuccessMessage ? <Modal /> : null}
+        <div className="login">
+          <h1>React Pilot</h1>
+          <div className="form-signin">
+            <form onSubmit={this.handleLogin}>
+              <TextInput
+                type="email"
+                value={this.props.email}
+                placeholder="E-mail"
+                error={this.state.emailError}
+                label="E-mail"
+                onTextChange={this.emailChangeHandler}
+              />
+              <TextInput
+                type="password"
+                value={this.props.password}
+                placeholder="Senha"
+                error={this.state.passwordError}
+                label="Senha"
+                onTextChange={this.passwordChangeHandler}
+              />
+              <button type="submit" className="btn btn-primary btn-lg btn-block">
+                Login
+              </button>
+
+              <Link to="/cadastro" className="btn btn-secondary btn-lg btn-block">
+                Cadastro
+              </Link>
+            </form>
+          </div>
         </div>
       </div>
     );
@@ -36,12 +126,30 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-  isLoading: PropTypes.bool,
+  isSubmiting: PropTypes.bool,
+  email: PropTypes.string,
+  password: PropTypes.string,
+  submitLogin: PropTypes.func,
+  changeEmail: PropTypes.func,
+  changePassword: PropTypes.func,
+  cleanLoginMessages: PropTypes.func,
+  submitErrorMessage: PropTypes.string,
+  submitSuccessMessage: PropTypes.string,
 };
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(
+    {
+      submitLogin,
+      changeEmail,
+      changePassword,
+      cleanLoginMessages,
+    },
+    dispatch,
+  );
+}
 const mapStateToProps = state => ({
-  apiResponse: state.api.apiUsersResultData,
-  isLoading: state.api.isLoading,
+  ...state.userLogin,
 });
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
