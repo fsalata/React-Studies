@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
 // import { PersistGate } from 'redux-persist/integration/react';
 
 import createAppStore from './config/store';
@@ -12,9 +11,7 @@ const { store } = createAppStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
-      <AppRoute />
-    </Router>
+    <AppRoute />
   </Provider>,
   document.querySelector('.container'),
 );
