@@ -1,0 +1,15 @@
+body .login {
+  padding-top: 40px;
+}
+
+body .login h1 {
+  text-align: center;
+}
+
+body .login .form-signin {
+  width: 100%;
+  max-width: 420px;
+  padding: 15px;
+  margin: auto;
+}
+/*# sourceMappingURL=style.css.map */

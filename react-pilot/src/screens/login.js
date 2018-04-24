@@ -4,16 +4,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { submitLogin, changeEmail, changePassword } from '../actions/userLogin';
-import { submitRegister } from '../actions/userRegister';
+import TextInput from '../components/textInput';
+
+import { submitLogin, changeEmail, changePassword, cleanLoginMessages } from '../actions/userLogin';
 
 class Login extends Component {
-  componentDidMount() {
-    this.props.dispatch(submitRegister());
-    this.props.dispatch(changeEmail('bin@bin.com'));
-    this.props.dispatch(changePassword('123'));
-    this.props.dispatch(submitLogin());
-  }
+  handleLogin = (event) => {
+    event.preventDefault();
+  };
 
   render() {
     if (this.props.isLoading) {
@@ -21,19 +19,24 @@ class Login extends Component {
     }
 
     return (
-      <div>
-        <div>React simple starter</div>
-        <span>{this.props.isLoading}</span>
-        <span>{this.props.apiResponse.map(item => <span> {item.name}</span>)}</span>
+      <div className="login">
+        <h1>React Pilot</h1>
+        <div className="form-signin">
+          <form onSubmit={this.handleLogin}>
+            <TextInput type="email" placeholder="E-mail" error="errro" label="E-mail" />
+            <TextInput type="password" placeholder="E-mail" error="errro" label="Senha" />
+            <button type="submit" className="btn btn-primary btn-lg">
+              Login
+            </button>
+          </form>
+        </div>
       </div>
     );
   }
 }
 
 Login.propTypes = {
-  apiResponse: PropTypes.arrayOf(PropTypes.object),
   isLoading: PropTypes.bool,
-  dispatch: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
