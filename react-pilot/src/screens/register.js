@@ -34,6 +34,20 @@ class Register extends Component {
     };
   }
 
+  avatarChangeHandler = (event) => {
+    const img = event.target.files[0];
+
+    const reader = new FileReader();
+    reader.onload = (upload) => {
+      this.props.changeBase64Image(upload.target.result);
+    };
+    reader.readAsDataURL(img);
+  };
+
+  removeAvatarHandle = () => {
+    this.props.changeBase64Image(null);
+  };
+
   nameChangeHandler = (event) => {
     const text = event.target.value;
 
@@ -152,7 +166,7 @@ class Register extends Component {
         {this.props.submitSuccessMessage ? (
           <Modal
             title="Sucesso"
-            message={this.props.submitErrorMessage}
+            message={this.props.submitSuccessMessage}
             closeTitle="Ok"
             showConfirmButton
             closeAction={this.closeModal}
@@ -165,7 +179,11 @@ class Register extends Component {
           <h4>Cadastro</h4>
           <div className="form-signin">
             <form onSubmit={this.handleRegister}>
-              <Avatar image={this.props.profileImage} />
+              <Avatar
+                image={this.props.profileImage}
+                imageChange={this.avatarChangeHandler}
+                removeImage={this.removeAvatarHandle}
+              />
               <TextInput
                 type="text"
                 value={this.props.name}

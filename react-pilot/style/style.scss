@@ -61,6 +61,24 @@
   background-color: rgba(0, 0, 0, 0.7);
 }
 
+.avatar {
+  position: relative;
+
+  input[type="file"] {
+    position: absolute;
+    top: 10px;
+    opacity: 0;
+  }
+
+  .close {
+    width: 12px;
+    position: absolute;
+    left: 50%;
+    bottom: 2px;
+    margin-left: 53px;
+  }
+}
+
 .register {
   .avatar {
     width: 100%;

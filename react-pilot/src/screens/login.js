@@ -86,7 +86,7 @@ class Login extends Component {
         {this.props.submitSuccessMessage ? (
           <Modal
             title="Sucesso"
-            message={this.props.submitErrorMessage}
+            message={this.props.submitSuccessMessage}
             closeTitle="Ok"
             showConfirmButton
             closeAction={this.closeModal}
