@@ -129,7 +129,7 @@ class Register extends Component {
     }
 
     if (isValid === true) {
-      alert('foi');
+      this.props.submitRegister();
     }
   };
 
