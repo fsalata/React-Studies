@@ -3,10 +3,21 @@
   padding-top: 40px;
 }
 
-.login h1,
-.login h2,
-.register h1,
-.register h2 {
+.login h4,
+.register h4 {
+  text-align: center;
+}
+
+.header a {
+  color: #000;
+}
+
+.header a:visited, .header a:hover, .header a:active {
+  color: #000;
+  text-decoration: none;
+}
+
+.header h1 {
   text-align: center;
 }
 

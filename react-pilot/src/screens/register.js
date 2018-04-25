@@ -162,7 +162,7 @@ class Register extends Component {
         {this.props.isSubmiting ? <span>carregando...</span> : null}
 
         <div className="register">
-          <h2>Cadastro</h2>
+          <h4>Cadastro</h4>
           <div className="form-signin">
             <form onSubmit={this.handleRegister}>
               <Avatar image={this.props.profileImage} />
@@ -212,6 +212,10 @@ class Register extends Component {
                 <button type="submit" className="btn btn-primary btn-lg btn-block">
                   Cadastrar
                 </button>
+
+                <Link to="/login" className="btn btn-secondary btn-lg btn-block">
+                  Voltar para o login
+                </Link>
               </div>
             </form>
           </div>

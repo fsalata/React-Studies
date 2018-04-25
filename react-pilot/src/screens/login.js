@@ -94,7 +94,7 @@ class Login extends Component {
         ) : null}
 
         <div className="login">
-          <h1>React Pilot</h1>
+          <h4>Login</h4>
           <div className="form-signin">
             <form onSubmit={this.handleLogin}>
               <TextInput
@@ -113,7 +113,7 @@ class Login extends Component {
                 label="Senha"
                 onTextChange={this.passwordChangeHandler}
               />
-              <div className="form-group button">
+              <div className="form-group buttons">
                 <button type="submit" className="btn btn-primary btn-lg btn-block">
                   Login
                 </button>
