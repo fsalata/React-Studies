@@ -10,6 +10,7 @@ import TextInput from '../components/textInput';
 import Modal from '../components/modal';
 
 import { submitLogin, changeEmail, changePassword, cleanLoginMessages } from '../actions/userLogin';
+import { validateEmail } from '../helpers/utilities';
 
 class Login extends Component {
   constructor(props) {
@@ -21,21 +22,13 @@ class Login extends Component {
     };
   }
 
-  validateEmail = (text) => {
-    const reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-    if (reg.test(text) === false) {
-      return false;
-    }
-    return true;
-  };
-
   emailChangeHandler = (event) => {
     const text = event.target.value;
 
     this.props.changeEmail(text);
     this.setState({
       emailError:
-        this.validateEmail(this.props.email) === false && [...text].length > 3
+        validateEmail(this.props.email) === false && [...text].length > 3
           ? 'E-mail inválido'
           : null,
     });
@@ -89,7 +82,17 @@ class Login extends Component {
             closeAction={this.closeModal}
           />
         ) : null}
-        {this.props.submitSuccessMessage ? <Modal /> : null}
+
+        {this.props.submitSuccessMessage ? (
+          <Modal
+            title="Sucesso"
+            message={this.props.submitErrorMessage}
+            closeTitle="Ok"
+            showConfirmButton
+            closeAction={this.closeModal}
+          />
+        ) : null}
+
         <div className="login">
           <h1>React Pilot</h1>
           <div className="form-signin">
@@ -110,13 +113,15 @@ class Login extends Component {
                 label="Senha"
                 onTextChange={this.passwordChangeHandler}
               />
-              <button type="submit" className="btn btn-primary btn-lg btn-block">
-                Login
-              </button>
+              <div className="form-group button">
+                <button type="submit" className="btn btn-primary btn-lg btn-block">
+                  Login
+                </button>
 
-              <Link to="/cadastro" className="btn btn-secondary btn-lg btn-block">
-                Cadastro
-              </Link>
+                <Link to="/cadastro" className="btn btn-secondary btn-lg btn-block">
+                  Cadastro
+                </Link>
+              </div>
             </form>
           </div>
         </div>
@@ -129,12 +134,12 @@ Login.propTypes = {
   isSubmiting: PropTypes.bool,
   email: PropTypes.string,
   password: PropTypes.string,
+  submitErrorMessage: PropTypes.string,
+  submitSuccessMessage: PropTypes.string,
   submitLogin: PropTypes.func,
   changeEmail: PropTypes.func,
   changePassword: PropTypes.func,
   cleanLoginMessages: PropTypes.func,
-  submitErrorMessage: PropTypes.string,
-  submitSuccessMessage: PropTypes.string,
 };
 
 function mapDispatchToProps(dispatch) {

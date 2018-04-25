@@ -8,6 +8,7 @@ import Employees from '../screens/employees';
 const AppRoute = () => (
   <BrowserRouter>
     <Switch>
+      <Route exact path="/" component={Login} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/cadastro" component={Register} />
       <Route exact path="/funcionarios" component={Employees} />

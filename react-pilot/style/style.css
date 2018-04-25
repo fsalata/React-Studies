@@ -1,8 +1,12 @@
-.login {
+.login,
+.register {
   padding-top: 40px;
 }
 
-.login h1 {
+.login h1,
+.login h2,
+.register h1,
+.register h2 {
   text-align: center;
 }
 
@@ -13,6 +17,23 @@
   padding: 15px;
   margin: auto;
   padding-top: 50px;
+}
+
+.form-register {
+  padding-top: 0;
+}
+
+.form-group {
+  margin-bottom: 0.3rem;
+}
+
+.form-group.buttons {
+  margin-top: 10px;
+}
+
+.custom-text-input label {
+  font-size: 12px;
+  margin-bottom: 0.3rem;
 }
 
 .custom-text-input small {
@@ -31,5 +52,13 @@
 
 .modal {
   display: block;
+}
+
+.register .avatar {
+  width: 100%;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 /*# sourceMappingURL=style.css.map */
