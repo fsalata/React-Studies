@@ -2,7 +2,6 @@ import LocalForage from 'localforage';
 import { takeEvery, select, put } from 'redux-saga/effects';
 
 import { SUBMIT_LOGIN, SUBMIT_LOGIN_SUCCESS, SUBMIT_LOGIN_ERROR } from '../actions/userLogin';
-import { SET_LOGIN_STATUS } from '../actions/loggedUser';
 
 const attemptLogin = (user) => {
   try {
@@ -37,13 +36,6 @@ function* login() {
     if (result.error) {
       yield put({ type: SUBMIT_LOGIN_ERROR, sagaErrorMessage: result.error });
     } else {
-      const user = {
-        email: userLoginState.email,
-        password: userLoginState.password,
-        status: true,
-      };
-      yield put({ type: SET_LOGIN_STATUS, user });
-
       yield put({ type: SUBMIT_LOGIN_SUCCESS, sagaSuccessMessage: result.success });
     }
   } catch (e) {

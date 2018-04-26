@@ -10,7 +10,7 @@ import TextInput from '../components/textInput';
 import Modal from '../components/modal';
 
 import { submitLogin, changeEmail, changePassword, cleanLoginMessages } from '../actions/userLogin';
-import { getLoginStatus } from '../actions/loggedUser';
+import { getLoginStatus, setLoginStatus } from '../actions/loggedUser';
 import { validateEmail } from '../helpers/utilities';
 
 class Login extends Component {
@@ -20,7 +20,6 @@ class Login extends Component {
     this.state = {
       emailError: null,
       passwordError: null,
-      loginSuccess: false,
     };
   }
 
@@ -70,7 +69,13 @@ class Login extends Component {
   };
 
   handleSuccessLoginModal = () => {
-    this.setState({ loginSuccess: true });
+    const user = {
+      email: this.props.email,
+      password: this.props.password,
+      status: true,
+    };
+
+    this.props.setLoginStatus(user);
   };
 
   closeModal = () => {
@@ -82,7 +87,7 @@ class Login extends Component {
       return <span> carregando... </span>;
     }
 
-    if (this.state.loginSuccess || this.props.isloggedIn) {
+    if (this.props.isloggedIn) {
       return <Redirect to="/funcionarios" />;
     }
 
@@ -153,11 +158,13 @@ Login.propTypes = {
   password: PropTypes.string,
   submitErrorMessage: PropTypes.string,
   submitSuccessMessage: PropTypes.string,
+  isloggedIn: PropTypes.bool,
   submitLogin: PropTypes.func,
   changeEmail: PropTypes.func,
   changePassword: PropTypes.func,
   cleanLoginMessages: PropTypes.func,
-  isloggedIn: PropTypes.bool,
+  getLoginStatus: PropTypes.func,
+  setLoginStatus: PropTypes.func,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -168,13 +175,14 @@ function mapDispatchToProps(dispatch) {
       changePassword,
       cleanLoginMessages,
       getLoginStatus,
+      setLoginStatus,
     },
     dispatch,
   );
 }
 const mapStateToProps = state => ({
   ...state.userLogin,
-  isloggedIn: !!state.userProfile.email,
+  isloggedIn: state.loggedUser.status,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
