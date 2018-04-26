@@ -63,6 +63,10 @@ class Login extends Component {
     }
   };
 
+  handleSuccessLoginModal = () => {
+    this.props.history.push('/funcionarios');
+  };
+
   closeModal = () => {
     this.props.cleanLoginMessages();
   };
@@ -88,8 +92,11 @@ class Login extends Component {
             title="Sucesso"
             message={this.props.submitSuccessMessage}
             closeTitle="Ok"
-            showConfirmButton
             closeAction={this.closeModal}
+            showCloseButton={false}
+            showConfirmButton
+            confirmTitle="Ok"
+            confirmAction={this.handleSuccessLoginModal}
           />
         ) : null}
 
@@ -140,6 +147,7 @@ Login.propTypes = {
   changeEmail: PropTypes.func,
   changePassword: PropTypes.func,
   cleanLoginMessages: PropTypes.func,
+  history: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 function mapDispatchToProps(dispatch) {

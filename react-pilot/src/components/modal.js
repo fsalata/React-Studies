@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 const Modal = ({
   title,
   message,
+  showCloseButton = true,
   showConfirmButton = false,
   closeTitle,
   confirmTitle,
@@ -29,9 +30,12 @@ const Modal = ({
         </div>
         <div className="modal-body">{message}</div>
         <div className="modal-footer">
-          <button type="button" className="btn btn-secondary" onClick={closeAction}>
-            {closeTitle}
-          </button>
+          {showCloseButton ? (
+            <button type="button" className="btn btn-secondary" onClick={closeAction}>
+              {closeTitle}
+            </button>
+          ) : null}
+
           {showConfirmButton ? (
             <button type="button" className="btn btn-primary" onClick={confirmAction}>
               {confirmTitle}
@@ -46,6 +50,7 @@ const Modal = ({
 Modal.propTypes = {
   title: PropTypes.string,
   message: PropTypes.string,
+  showCloseButton: PropTypes.bool,
   showConfirmButton: PropTypes.bool,
   closeTitle: PropTypes.string,
   confirmTitle: PropTypes.string,
