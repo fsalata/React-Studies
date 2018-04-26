@@ -1,3 +1,7 @@
+.pageContainer {
+  padding-top: 60px;
+}
+
 .login,
 .register {
   padding-top: 40px;
@@ -8,17 +12,13 @@
   text-align: center;
 }
 
-.header a {
-  color: #000;
+.navbar a {
+  color: #fff;
 }
 
-.header a:visited, .header a:hover, .header a:active {
-  color: #000;
+.navbar a:visited, .navbar a:hover, .navbar a:active {
+  color: #fff;
   text-decoration: none;
-}
-
-.header h1 {
-  text-align: center;
 }
 
 .form-signin,

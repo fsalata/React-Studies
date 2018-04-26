@@ -11,32 +11,16 @@ const AppRoute = () => (
   <BrowserRouter>
     <div>
       <Header />
-      <Switch>
-        <Route exact path="/" component={Login} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/cadastro" component={Register} />
-        <Route exact path="/funcionarios" component={Employees} />
-      </Switch>
+      <div className="container pageContainer">
+        <Switch>
+          <Route exact path="/" component={Login} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/cadastro" component={Register} />
+          <Route exact path="/funcionarios" component={Employees} />
+        </Switch>
+      </div>
     </div>
   </BrowserRouter>
-);
-
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={props =>
-      (fakeAuth.isAuthenticated ? (
-        <Component {...props} />
-      ) : (
-        <Redirect
-          to={{
-            pathname: '/login',
-            state: { from: props.location },
-          }}
-        />
-      ))
-    }
-  />
 );
 
 export default AppRoute;

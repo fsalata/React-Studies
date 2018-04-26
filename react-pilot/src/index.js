@@ -11,5 +11,5 @@ ReactDOM.render(
   <Provider store={store}>
     <AppRoute />
   </Provider>,
-  document.querySelector('.container'),
+  document.querySelector('.content'),
 );

@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
@@ -19,6 +19,7 @@ class Login extends Component {
     this.state = {
       emailError: null,
       passwordError: null,
+      loginSuccess: false,
     };
   }
 
@@ -64,7 +65,7 @@ class Login extends Component {
   };
 
   handleSuccessLoginModal = () => {
-    this.props.history.push('/funcionarios');
+    this.setState({ loginSuccess: true });
   };
 
   closeModal = () => {
@@ -74,6 +75,10 @@ class Login extends Component {
   render() {
     if (this.props.isSubmiting) {
       return <span> carregando... </span>;
+    }
+
+    if (this.state.loginSuccess || this.props.isloggedIn) {
+      return <Redirect to="/funcionarios" />;
     }
 
     return (
@@ -147,7 +152,7 @@ Login.propTypes = {
   changeEmail: PropTypes.func,
   changePassword: PropTypes.func,
   cleanLoginMessages: PropTypes.func,
-  history: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  isloggedIn: PropTypes.bool,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -163,6 +168,7 @@ function mapDispatchToProps(dispatch) {
 }
 const mapStateToProps = state => ({
   ...state.userLogin,
+  isloggedIn: !!state.userProfile.email,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

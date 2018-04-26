@@ -2,11 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Header = () => (
-  <div className="header">
-    <Link to="/">
-      <h1>React Pilot</h1>
-    </Link>
-  </div>
+  <nav className="navbar navbar-dark bg-dark fixed-top">
+    <div className="container">
+      <Link to="/" className="navbar-brand">
+        React Pilot
+      </Link>
+    </div>
+  </nav>
 );
 
 export default Header;
