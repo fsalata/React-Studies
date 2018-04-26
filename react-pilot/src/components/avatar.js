@@ -10,28 +10,40 @@ const Avatar = ({
   iconSize = '7x',
   imageChange = null,
   removeImage = null,
-}) => (
-  <div className="avatar">
-    {imageChange ? (
-      <input
-        type="file"
-        accept="image/*"
-        style={{ width: size, height: size }}
-        onChange={imageChange}
-      />
-    ) : null}
-    {imageChange && image ? (
-      <button onClick={removeImage}>
-        <FontAwesomeIcon icon={close} color="#000" className="close" />
-      </button>
-    ) : null}
-    {image ? (
-      <img src={image} alt="..." className="rounded-circle" width={size} height={size} />
-    ) : (
-      <FontAwesomeIcon icon={userCircle} size={iconSize} color="#ccc" />
-    )}
-  </div>
-);
+}) => {
+  let fileInput = null;
+
+  function handleRemove() {
+    removeImage();
+    fileInput.value = '';
+  }
+
+  return (
+    <div className="avatar">
+      {imageChange ? (
+        <input
+          type="file"
+          accept="image/*"
+          style={{ width: size, height: size }}
+          onChange={imageChange}
+          ref={(ref) => {
+            fileInput = ref;
+          }}
+        />
+      ) : null}
+      {imageChange && image ? (
+        <button onClick={handleRemove}>
+          <FontAwesomeIcon icon={close} color="#000" className="close" />
+        </button>
+      ) : null}
+      {image ? (
+        <img src={image} alt="..." className="rounded-circle" width={size} height={size} />
+      ) : (
+        <FontAwesomeIcon icon={userCircle} size={iconSize} color="#ccc" />
+      )}
+    </div>
+  );
+};
 
 Avatar.propTypes = {
   size: PropTypes.number,
