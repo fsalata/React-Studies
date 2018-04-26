@@ -9,14 +9,16 @@ import {
 
 function* getLoginStatus() {
   try {
-    yield LocalForage.getItem('loggedUser').then((storedUser) => {
+    const user = yield LocalForage.getItem('loggedUser').then((storedUser) => {
       if (storedUser) {
-        const user = JSON.parse(storedUser);
-
-        put({ type: SET_LOGIN_STATUS_SUCCESS, loggedUser: user });
+        return JSON.parse(storedUser);
       }
       return null;
     });
+
+    if (user) {
+      yield put({ type: SET_LOGIN_STATUS_SUCCESS, loggedUser: user });
+    }
   } catch (e) {
     console.log(e);
   }
@@ -24,9 +26,11 @@ function* getLoginStatus() {
 
 function* setLoginStatus({ user }) {
   try {
-    yield LocalForage.setItem('loggedUser', JSON.stringify(user)).then((savedUser) => {
-      put({ type: SET_LOGIN_STATUS_SUCCESS, loggedUser: JSON.parse(savedUser) });
-    });
+    const storedUser = yield LocalForage.setItem('loggedUser', JSON.stringify(user)).then(savedUser => JSON.parse(savedUser));
+
+    if (user) {
+      yield put({ type: SET_LOGIN_STATUS_SUCCESS, loggedUser: storedUser });
+    }
   } catch (e) {
     console.log(e);
   }

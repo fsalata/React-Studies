@@ -10,6 +10,7 @@ import TextInput from '../components/textInput';
 import Modal from '../components/modal';
 
 import { submitLogin, changeEmail, changePassword, cleanLoginMessages } from '../actions/userLogin';
+import { getLoginStatus } from '../actions/loggedUser';
 import { validateEmail } from '../helpers/utilities';
 
 class Login extends Component {
@@ -21,6 +22,10 @@ class Login extends Component {
       passwordError: null,
       loginSuccess: false,
     };
+  }
+
+  componentDidMount() {
+    this.props.getLoginStatus();
   }
 
   emailChangeHandler = (event) => {
@@ -162,6 +167,7 @@ function mapDispatchToProps(dispatch) {
       changeEmail,
       changePassword,
       cleanLoginMessages,
+      getLoginStatus,
     },
     dispatch,
   );
