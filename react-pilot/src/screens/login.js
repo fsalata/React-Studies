@@ -1,17 +1,22 @@
 // @flow
 
-import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import PropTypes from "prop-types";
 
-import TextInput from '../components/textInput';
-import Modal from '../components/modal';
+import TextInput from "../components/textInput";
+import Modal from "../components/modal";
 
-import { submitLogin, changeEmail, changePassword, cleanLoginMessages } from '../actions/userLogin';
-import { getLoginStatus, setLoginStatus } from '../actions/loggedUser';
-import { validateEmail } from '../helpers/utilities';
+import {
+  submitLogin,
+  changeEmail,
+  changePassword,
+  cleanLoginMessages
+} from "../actions/userLogin";
+import { getLoginStatus, setLoginStatus } from "../actions/loggedUser";
+import { validateEmail } from "../helpers/utilities";
 
 class Login extends Component {
   constructor(props) {
@@ -19,7 +24,7 @@ class Login extends Component {
 
     this.state = {
       emailError: null,
-      passwordError: null,
+      passwordError: null
     };
   }
 
@@ -27,19 +32,19 @@ class Login extends Component {
     this.props.getLoginStatus();
   }
 
-  emailChangeHandler = (event) => {
+  emailChangeHandler = event => {
     const text = event.target.value;
 
     this.props.changeEmail(text);
     this.setState({
       emailError:
         validateEmail(this.props.email) === false && [...text].length > 3
-          ? 'E-mail inválido'
-          : null,
+          ? "E-mail inválido"
+          : null
     });
   };
 
-  passwordChangeHandler = (event) => {
+  passwordChangeHandler = event => {
     const text = event.target.value;
 
     this.setState({ passwordError: null });
@@ -47,20 +52,20 @@ class Login extends Component {
     this.props.changePassword(text);
   };
 
-  handleLogin = (event) => {
+  handleLogin = event => {
     event.preventDefault();
 
     let isValid = true;
 
     this.setState({ emailError: null, passwordError: null });
 
-    if (this.props.email === null || this.props.email === '') {
+    if (this.props.email === null || this.props.email === "") {
       isValid = false;
-      this.setState({ emailError: 'O e-mail é obrigatório' });
+      this.setState({ emailError: "O e-mail é obrigatório" });
     }
-    if (this.props.password === null || this.props.password === '') {
+    if (this.props.password === null || this.props.password === "") {
       isValid = false;
-      this.setState({ passwordError: 'A senha é obrigatória' });
+      this.setState({ passwordError: "A senha é obrigatória" });
     }
 
     if (isValid) {
@@ -72,7 +77,7 @@ class Login extends Component {
     const user = {
       email: this.props.email,
       password: this.props.password,
-      status: true,
+      status: true
     };
 
     this.props.setLoginStatus(user);
@@ -83,7 +88,7 @@ class Login extends Component {
   };
 
   render() {
-    if (this.props.isSubmiting) {
+    if (this.props.isSubmiting || this.props.isLoading) {
       return <span> carregando... </span>;
     }
 
@@ -136,11 +141,17 @@ class Login extends Component {
                 onTextChange={this.passwordChangeHandler}
               />
               <div className="form-group buttons">
-                <button type="submit" className="btn btn-primary btn-lg btn-block">
+                <button
+                  type="submit"
+                  className="btn btn-primary btn-lg btn-block"
+                >
                   Login
                 </button>
 
-                <Link to="/cadastro" className="btn btn-secondary btn-lg btn-block">
+                <Link
+                  to="/cadastro"
+                  className="btn btn-secondary btn-lg btn-block"
+                >
                   Cadastro
                 </Link>
               </div>
@@ -159,12 +170,13 @@ Login.propTypes = {
   submitErrorMessage: PropTypes.string,
   submitSuccessMessage: PropTypes.string,
   isloggedIn: PropTypes.bool,
+  isLoading: PropTypes.bool,
   submitLogin: PropTypes.func,
   changeEmail: PropTypes.func,
   changePassword: PropTypes.func,
   cleanLoginMessages: PropTypes.func,
   getLoginStatus: PropTypes.func,
-  setLoginStatus: PropTypes.func,
+  setLoginStatus: PropTypes.func
 };
 
 function mapDispatchToProps(dispatch) {
@@ -175,14 +187,16 @@ function mapDispatchToProps(dispatch) {
       changePassword,
       cleanLoginMessages,
       getLoginStatus,
-      setLoginStatus,
+      setLoginStatus
     },
-    dispatch,
+    dispatch
   );
 }
+
 const mapStateToProps = state => ({
   ...state.userLogin,
-  isloggedIn: state.loggedUser.status,
+  isLoading: state.loggedUser.isLoading,
+  isloggedIn: state.loggedUser.status
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

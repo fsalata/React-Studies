@@ -1,18 +1,28 @@
 // @flow
 
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { Link, Redirect } from 'react-router-dom';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import PropTypes from "prop-types";
+import { Link, Redirect } from "react-router-dom";
 
-import { getApiUsers } from '../actions/api';
+import { getApiUsers } from "../actions/api";
+import { getLoginStatus } from "../actions/loggedUser";
 
 class Employees extends Component {
   componentDidMount() {
-    this.props.dispatch(getApiUsers());
+    this.props.getLoginStatus();
   }
 
   render() {
+    if (this.props.isLoading) {
+      return <span> carregando... </span>;
+    }
+
+    if (!this.props.isloggedIn) {
+      return <Redirect to="/" />;
+    }
+
     return (
       <div>
         <div>React simple starter</div>
@@ -24,12 +34,22 @@ class Employees extends Component {
 }
 
 Employees.propTypes = {
-  dispatch: PropTypes.func,
+  dispatch: PropTypes.func
 };
 
 const mapStateToProps = state => ({
   ...state,
-  isloggedIn: !!state.userProfile.email,
+  isLoading: state.loggedUser.isLoading,
+  isloggedIn: state.loggedUser.status
 });
 
-export default connect(mapStateToProps)(Employees);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(
+    {
+      getLoginStatus
+    },
+    dispatch
+  );
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Employees);
