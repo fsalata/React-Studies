@@ -184,7 +184,7 @@ function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = state => ({
   ...state.userLogin,
-  isLoading: state.loggedUser.isLoading,
+  isLoading: state.loggedUser.checking,
   isloggedIn: state.loggedUser.status,
 });
 

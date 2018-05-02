@@ -3,12 +3,14 @@
 }
 
 .login,
-.register {
+.register,
+.profile {
   padding-top: 40px;
 }
 
 .login h4,
-.register h4 {
+.register h4,
+.profile h4 {
   text-align: center;
 }
 
@@ -75,7 +77,8 @@
   margin-left: 53px;
 }
 
-.register .avatar {
+.register .avatar,
+.profile .avatar {
   width: 100%;
   padding: 10px 0;
   display: flex;
@@ -89,5 +92,15 @@
 
 .card .map {
   height: 200px;
+}
+
+.profile h2,
+.profile h6,
+.profile p {
+  text-align: center;
+}
+
+.profile button {
+  margin-top: 40px;
 }
 /*# sourceMappingURL=style.css.map */

@@ -6,6 +6,7 @@ import Header from '../components/header';
 import Login from '../screens/login';
 import Register from '../screens/register';
 import Employees from '../screens/employees';
+import Profile from '../screens/profile';
 
 const AppRoute = () => (
   <BrowserRouter>
@@ -16,6 +17,7 @@ const AppRoute = () => (
           <Route exact path="/" component={Login} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/cadastro" component={Register} />
+          <Route exact path="/perfil" component={Profile} />
           <Route exact path="/funcionarios" component={Employees} />
         </Switch>
       </div>

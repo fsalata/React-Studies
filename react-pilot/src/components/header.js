@@ -28,7 +28,9 @@ class Header extends Component {
           </Link>
 
           {this.props.isloggedIn ? (
-            <Avatar size="35" image={this.props.userProfile.profileImage} iconSize="2x" />
+            <Link to="/perfil">
+              <Avatar size="35" image={this.props.userProfile.profileImage} iconSize="2x" />
+            </Link>
           ) : null}
         </div>
       </nav>

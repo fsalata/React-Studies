@@ -9,7 +9,7 @@ const initialState = {
   email: null,
   password: null,
   status: false,
-  isLoading: false,
+  checking: true,
 };
 
 const reducer = (state = initialState, action) => {
@@ -17,22 +17,22 @@ const reducer = (state = initialState, action) => {
     case GET_LOGIN_STATUS:
       return {
         ...state,
-        isLoading: true,
+        checking: true,
       };
     case SET_LOGIN_STATUS:
       return {
         ...state,
-        isLoading: true,
+        checking: true,
       };
     case SET_LOGIN_STATUS_SUCCESS:
       return {
         ...action.loggedUser,
-        isLoading: false,
+        checking: false,
       };
     case CLEAR_LOGIN_STATUS:
       return {
-        ...state,
-        isLoading: true,
+        ...initialState,
+        checking: false,
       };
     default:
       return {

@@ -3,7 +3,8 @@
 }
 
 .login,
-.register {
+.register,
+.profile {
   padding-top: 40px;
 
   h4 {
@@ -80,7 +81,8 @@
   }
 }
 
-.register {
+.register,
+.profile {
   .avatar {
     width: 100%;
     padding: 10px 0;
@@ -95,5 +97,17 @@
 
   .map {
     height: 200px;
+  }
+}
+
+.profile {
+  h2,
+  h6,
+  p {
+    text-align: center;
+  }
+
+  button {
+    margin-top: 40px;
   }
 }

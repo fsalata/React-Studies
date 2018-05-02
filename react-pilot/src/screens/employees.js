@@ -62,7 +62,7 @@ const mapStateToProps = state => ({
   ...state,
   users: state.api.apiUsersResultData,
   isLoading: state.api.apiUsersResultData.isLoading,
-  checkingLogin: state.loggedUser.isLoading,
+  checkingLogin: state.loggedUser.checking,
   isloggedIn: state.loggedUser.status,
 });
 

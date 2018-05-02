@@ -5,6 +5,7 @@ import {
   GET_LOGIN_STATUS,
   SET_LOGIN_STATUS,
   SET_LOGIN_STATUS_SUCCESS,
+  CLEAR_LOGIN_STATUS,
 } from '../actions/loggedUser';
 
 function* getLoginStatus() {
@@ -42,9 +43,18 @@ function* setLoginStatus({ user }) {
   }
 }
 
+function* clearLoginStatus() {
+  try {
+    yield LocalForage.removeItem('loggedUser');
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export const loggedUserSaga = [
   takeEvery(GET_LOGIN_STATUS, getLoginStatus),
   takeEvery(SET_LOGIN_STATUS, setLoginStatus),
+  takeEvery(CLEAR_LOGIN_STATUS, clearLoginStatus),
 ];
 
 export default loggedUserSaga;
