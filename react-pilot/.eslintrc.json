@@ -19,6 +19,7 @@
     "no-plusplus": 0,
     "radix": 0,
     "no-cond-assign": 0,
-    "no-param-reassign": 0
+    "no-param-reassign": 0,
+    "react/no-typos": 0
   }
 }

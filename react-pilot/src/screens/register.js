@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
 
 import TextInput from '../components/textInput';
 import Modal from '../components/modal';
@@ -147,6 +148,10 @@ class Register extends Component {
     }
   };
 
+  handleSuccessLoginModal = () => {
+    this.props.history.push('/login');
+  };
+
   closeModal = () => {
     this.props.cleanRegisterMessages();
   };
@@ -168,8 +173,11 @@ class Register extends Component {
             title="Sucesso"
             message={this.props.submitSuccessMessage}
             closeTitle="Ok"
-            showConfirmButton
             closeAction={this.closeModal}
+            showCloseButton={false}
+            showConfirmButton
+            confirmTitle="Ok"
+            confirmAction={this.handleSuccessLoginModal}
           />
         ) : null}
 
@@ -259,6 +267,7 @@ Register.propTypes = {
   changeName: PropTypes.func,
   changePassword: PropTypes.func,
   cleanRegisterMessages: PropTypes.func,
+  history: ReactRouterPropTypes.history,
 };
 
 const mapStateToProps = state => ({
