@@ -82,4 +82,12 @@
   justify-content: center;
   align-items: center;
 }
+
+.card {
+  margin-bottom: 15px;
+}
+
+.card .map {
+  height: 200px;
+}
 /*# sourceMappingURL=style.css.map */
