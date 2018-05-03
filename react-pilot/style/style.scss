@@ -121,6 +121,10 @@
 .albums,
 .employees {
   padding: 15px 0;
+
+  a {
+    color: #000;
+  }
 }
 
 .list-group-item {

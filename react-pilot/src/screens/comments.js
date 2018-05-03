@@ -8,7 +8,7 @@ import { getApiPosts } from '../actions/api';
 
 import ListItem from '../components/listItem';
 
-class Posts extends Component {
+class Comments extends Component {
   componentWillMount() {
     this.props.getApiPosts(this.props.match.params.id);
   }
@@ -35,7 +35,7 @@ class Posts extends Component {
   }
 }
 
-Posts.propTypes = {
+Comments.propTypes = {
   isLoading: PropTypes.bool,
   checkingLogin: PropTypes.bool,
   getApiPosts: PropTypes.func,
@@ -58,4 +58,4 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Posts);
+export default connect(mapStateToProps, mapDispatchToProps)(Comments);

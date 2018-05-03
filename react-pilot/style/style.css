@@ -115,6 +115,13 @@
   padding: 15px 0;
 }
 
+.todos a,
+.posts a,
+.albums a,
+.employees a {
+  color: #000;
+}
+
 .list-group-item p {
   margin-bottom: 0;
 }

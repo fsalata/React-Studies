@@ -8,6 +8,8 @@ import Register from '../screens/register';
 import Employees from '../screens/employees';
 import Profile from '../screens/profile';
 import Todos from '../screens/todos';
+import Posts from '../screens/posts';
+import Comments from '../screens/comments';
 
 const AppRoute = () => (
   <BrowserRouter>
@@ -22,7 +24,8 @@ const AppRoute = () => (
           <Route exact path="/funcionarios" component={Employees} />
           <Route exact path="/todos/:id" component={Todos} />
           <Route exact path="/albuns/:id" component={Todos} />
-          <Route exact path="/posts/:id" component={Todos} />
+          <Route exact path="/posts/:id" component={Posts} />
+          <Route exact path="/posts/:id/:post" component={Comments} />
         </Switch>
       </div>
     </div>
