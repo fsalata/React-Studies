@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
@@ -157,6 +157,10 @@ class Register extends Component {
   };
 
   render() {
+    if (this.props.isloggedIn) {
+      return <Redirect to="/funcionarios" />;
+    }
+
     return (
       <div>
         {this.props.submitErrorMessage ? (
@@ -268,10 +272,12 @@ Register.propTypes = {
   changePassword: PropTypes.func,
   cleanRegisterMessages: PropTypes.func,
   history: ReactRouterPropTypes.history,
+  isloggedIn: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
   ...state.userRegister,
+  isloggedIn: state.loggedUser.status,
 });
 
 const mapDispatchToProps = dispatch =>

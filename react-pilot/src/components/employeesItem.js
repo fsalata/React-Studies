@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class EmployeesItem extends Component {
   componentDidMount() {
@@ -22,22 +23,24 @@ class EmployeesItem extends Component {
   }
 
   render() {
+    const { userID, name, username } = this.props;
+
     return (
       <div className="card">
         <div ref={ref => (this._map = ref)} className="card-img-top map" />
         <div className="card-body">
-          <h5 className="card-title">{this.props.name}</h5>
-          <p className="card-text">{this.props.username}</p>
+          <h5 className="card-title">{name}</h5>
+          <p className="card-text">{username}</p>
           <div className="btn-group d-flex" role="group">
-            <a href="#" className="btn btn-primary w-100">
+            <Link to={`/todos/${userID}`} className="btn btn-primary w-100">
               To Dos
-            </a>
-            <a href="#" className="btn btn-primary w-100">
+            </Link>
+            <Link to={`/posts/${userID}`} className="btn btn-primary w-100">
               Posts
-            </a>
-            <a href="#" className="btn btn-primary w-100">
+            </Link>
+            <Link to={`/albuns/${userID}`} className="btn btn-primary w-100">
               Albums
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -46,6 +49,7 @@ class EmployeesItem extends Component {
 }
 
 EmployeesItem.propTypes = {
+  userID: PropTypes.number,
   name: PropTypes.string,
   username: PropTypes.string,
   lat: PropTypes.string,

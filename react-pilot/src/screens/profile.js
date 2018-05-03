@@ -1,36 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Redirect } from 'react-router-dom';
 
-import { getLoginStatus, clearLoginStatus } from '../actions/loggedUser';
+import { clearLoginStatus } from '../actions/loggedUser';
 import { userProfileLogout } from '../actions/userProfile';
 
 import Avatar from '../components/avatar';
 
 class Profile extends Component {
-  componentDidMount() {
-    this.checkUserLogin();
-  }
-
-  checkUserLogin = async () => {
-    await this.props.getLoginStatus();
-  };
-
   logout = () => {
     this.props.clearLoginStatus();
     this.props.userProfileLogout();
   };
 
   render() {
-    if (this.props.checkingLogin) {
-      return <span> carregando... </span>;
-    }
-
-    if (!this.props.isloggedIn) {
-      return <Redirect to="/" />;
-    }
-
     return (
       <div className="profile">
         <Avatar image={this.props.user.profileImage} />
@@ -48,13 +31,11 @@ class Profile extends Component {
 const mapStateToProps = state => ({
   user: state.userProfile,
   isloggedIn: state.loggedUser.status,
-  checkingLogin: state.loggedUser.checking,
 });
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getLoginStatus,
       clearLoginStatus,
       userProfileLogout,
     },

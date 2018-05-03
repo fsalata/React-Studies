@@ -7,6 +7,7 @@ import Login from '../screens/login';
 import Register from '../screens/register';
 import Employees from '../screens/employees';
 import Profile from '../screens/profile';
+import Todos from '../screens/todos';
 
 const AppRoute = () => (
   <BrowserRouter>
@@ -19,6 +20,9 @@ const AppRoute = () => (
           <Route exact path="/cadastro" component={Register} />
           <Route exact path="/perfil" component={Profile} />
           <Route exact path="/funcionarios" component={Employees} />
+          <Route exact path="/todos/:id" component={Todos} />
+          <Route exact path="/albuns/:id" component={Todos} />
+          <Route exact path="/posts/:id" component={Todos} />
         </Switch>
       </div>
     </div>

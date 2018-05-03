@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -10,7 +8,7 @@ import TextInput from '../components/textInput';
 import Modal from '../components/modal';
 
 import { submitLogin, changeEmail, changePassword, cleanLoginMessages } from '../actions/userLogin';
-import { getLoginStatus, setLoginStatus } from '../actions/loggedUser';
+import { setLoginStatus } from '../actions/loggedUser';
 import { validateEmail } from '../helpers/utilities';
 
 class Login extends Component {
@@ -21,10 +19,6 @@ class Login extends Component {
       emailError: null,
       passwordError: null,
     };
-  }
-
-  componentDidMount() {
-    this.props.getLoginStatus();
   }
 
   emailChangeHandler = (event) => {
@@ -83,7 +77,7 @@ class Login extends Component {
   };
 
   render() {
-    if (this.props.isSubmiting || this.props.isLoading) {
+    if (this.props.isSubmiting || this.props.checkingUser) {
       return <span> carregando... </span>;
     }
 
@@ -159,12 +153,11 @@ Login.propTypes = {
   submitErrorMessage: PropTypes.string,
   submitSuccessMessage: PropTypes.string,
   isloggedIn: PropTypes.bool,
-  isLoading: PropTypes.bool,
+  checkingUser: PropTypes.bool,
   submitLogin: PropTypes.func,
   changeEmail: PropTypes.func,
   changePassword: PropTypes.func,
   cleanLoginMessages: PropTypes.func,
-  getLoginStatus: PropTypes.func,
   setLoginStatus: PropTypes.func,
 };
 
@@ -175,7 +168,6 @@ function mapDispatchToProps(dispatch) {
       changeEmail,
       changePassword,
       cleanLoginMessages,
-      getLoginStatus,
       setLoginStatus,
     },
     dispatch,
@@ -184,7 +176,7 @@ function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = state => ({
   ...state.userLogin,
-  isLoading: state.loggedUser.checking,
+  checkingUser: state.loggedUser.checking,
   isloggedIn: state.loggedUser.status,
 });
 

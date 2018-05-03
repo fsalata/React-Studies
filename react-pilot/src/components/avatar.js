@@ -5,7 +5,7 @@ import userCircle from '@fortawesome/fontawesome-free-solid/faUserCircle';
 import close from '@fortawesome/fontawesome-free-solid/faTimes';
 
 const Avatar = ({
-  size = 112,
+  size = '112',
   image = null,
   iconSize = '7x',
   imageChange = null,
@@ -46,7 +46,7 @@ const Avatar = ({
 };
 
 Avatar.propTypes = {
-  size: PropTypes.number,
+  size: PropTypes.string,
   image: PropTypes.string,
   iconSize: PropTypes.string,
   imageChange: PropTypes.func,

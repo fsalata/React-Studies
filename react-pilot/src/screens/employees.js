@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -13,16 +11,8 @@ import EmployeesItem from '../components/employeesItem';
 
 class Employees extends Component {
   componentDidMount() {
-    this.checkUserLogin();
-
-    if (this.props.isloggedIn) {
-      this.props.getApiUsers();
-    }
+    this.props.getApiUsers();
   }
-
-  checkUserLogin = async () => {
-    await this.props.getLoginStatus();
-  };
 
   render() {
     if (this.props.checkingLogin || this.props.isLoading) {
@@ -38,6 +28,7 @@ class Employees extends Component {
         {this.props.users.map(user => (
           <EmployeesItem
             key={user.id}
+            userID={user.id}
             name={user.name}
             username={user.username}
             lat={user.address.geo.lat}
@@ -54,7 +45,6 @@ Employees.propTypes = {
   isLoading: PropTypes.bool,
   checkingLogin: PropTypes.bool,
   getApiUsers: PropTypes.func,
-  getLoginStatus: PropTypes.func,
   users: PropTypes.array,
 };
 
