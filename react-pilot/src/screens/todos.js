@@ -6,8 +6,10 @@ import ReactRouterPropTypes from 'react-router-prop-types';
 
 import { getApiToDos } from '../actions/api';
 
+import ListItem from '../components/listItem';
+
 class Todos extends Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.getApiToDos(this.props.match.params.id);
   }
 
@@ -16,7 +18,19 @@ class Todos extends Component {
       return <span> carregando... </span>;
     }
 
-    return <div>{this.props.todos.map(todo => <div key={todo.id}>{todo.title}</div>)}</div>;
+    return (
+      <div className="todos">
+        <ul className="list-group">
+          {this.props.todos.map(todo => (
+            <ListItem
+              key={todo.id}
+              body={todo.title}
+              cellColor={todo.completed ? 'list-group-item-success' : 'list-group-item-danger'}
+            />
+          ))}
+        </ul>
+      </div>
+    );
   }
 }
 

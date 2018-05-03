@@ -94,6 +94,10 @@
   height: 200px;
 }
 
+.card:last-of-type {
+  margin-bottom: 0;
+}
+
 .profile h2,
 .profile h6,
 .profile p {
@@ -102,5 +106,16 @@
 
 .profile button {
   margin-top: 40px;
+}
+
+.todos,
+.posts,
+.albums,
+.employees {
+  padding: 15px 0;
+}
+
+.list-group-item p {
+  margin-bottom: 0;
 }
 /*# sourceMappingURL=style.css.map */

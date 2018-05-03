@@ -98,6 +98,10 @@
   .map {
     height: 200px;
   }
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
 }
 
 .profile {
@@ -109,5 +113,18 @@
 
   button {
     margin-top: 40px;
+  }
+}
+
+.todos,
+.posts,
+.albums,
+.employees {
+  padding: 15px 0;
+}
+
+.list-group-item {
+  p {
+    margin-bottom: 0;
   }
 }

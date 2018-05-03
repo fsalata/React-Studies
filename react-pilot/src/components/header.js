@@ -10,7 +10,7 @@ import { getLoginStatus } from '../actions/loggedUser';
 import Avatar from './avatar';
 
 class Header extends Component {
-  componentDidMount() {
+  componentWillMount() {
     if (this.props.email === null) {
       this.checkUserLogin();
     }

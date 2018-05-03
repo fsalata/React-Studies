@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
 
 import { getApiToDos } from '../actions/api';
 
 class Posts extends Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.getApiToDos(this.props.match.params.id);
   }
 
@@ -15,7 +16,11 @@ class Posts extends Component {
       return <span> carregando... </span>;
     }
 
-    return <div>{this.props.todos.map(todo => <div key={todo.id}>{todo.title}</div>)}</div>;
+    return (
+      <div className="posts">
+        {this.props.todos.map(todo => <div key={todo.id}>{todo.title}</div>)}
+      </div>
+    );
   }
 }
 
@@ -24,6 +29,7 @@ Posts.propTypes = {
   checkingLogin: PropTypes.bool,
   getApiToDos: PropTypes.func,
   todos: PropTypes.array,
+  match: ReactRouterPropTypes.match,
 };
 
 const mapStateToProps = state => ({

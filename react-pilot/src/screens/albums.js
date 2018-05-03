@@ -7,7 +7,7 @@ import ReactRouterPropTypes from 'react-router-prop-types';
 import { getApiToDos } from '../actions/api';
 
 class Albums extends Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.getApiToDos(this.props.match.params.id);
   }
 

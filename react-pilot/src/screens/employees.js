@@ -10,7 +10,7 @@ import { getLoginStatus } from '../actions/loggedUser';
 import EmployeesItem from '../components/employeesItem';
 
 class Employees extends Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.getApiUsers();
   }
 
@@ -24,7 +24,7 @@ class Employees extends Component {
     }
 
     return (
-      <div>
+      <div className="employees">
         {this.props.users.map(user => (
           <EmployeesItem
             key={user.id}
