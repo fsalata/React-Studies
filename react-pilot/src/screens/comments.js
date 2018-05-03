@@ -4,13 +4,13 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
 
-import { getApiPosts } from '../actions/api';
+import { getApiComments } from '../actions/api';
 
 import ListItem from '../components/listItem';
 
 class Comments extends Component {
   componentWillMount() {
-    this.props.getApiPosts(this.props.match.params.id);
+    this.props.getApiComments(this.props.match.params.post);
   }
 
   render() {
@@ -21,12 +21,12 @@ class Comments extends Component {
     return (
       <div className="posts">
         <ul className="list-group">
-          {this.props.posts.map(post => (
+          {this.props.posts.map(comment => (
             <ListItem
-              key={post.id}
-              title={post.title}
-              body={post.body}
-              link={`/posts/${this.props.match.params.id}/${post.id}`}
+              key={comment.id}
+              title={comment.name}
+              subtitle={comment.email}
+              body={comment.body}
             />
           ))}
         </ul>
@@ -38,21 +38,21 @@ class Comments extends Component {
 Comments.propTypes = {
   isLoading: PropTypes.bool,
   checkingLogin: PropTypes.bool,
-  getApiPosts: PropTypes.func,
+  getApiComments: PropTypes.func,
   posts: PropTypes.array,
   match: ReactRouterPropTypes.match,
 };
 
 const mapStateToProps = state => ({
-  posts: state.api.apiPostsResultData,
-  isLoading: state.api.apiPostsResultData.isLoading,
+  posts: state.api.apiCommentsResultData,
+  isLoading: state.api.apiCommentsResultData.isLoading,
   checkingLogin: state.loggedUser.checking,
 });
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getApiPosts,
+      getApiComments,
     },
     dispatch,
   );
