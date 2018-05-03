@@ -8,11 +8,34 @@ import { getApiUsers } from '../actions/api';
 import { getLoginStatus } from '../actions/loggedUser';
 
 import EmployeesItem from '../components/employeesItem';
+import Search from '../components/search';
 
 class Employees extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      term: '',
+      filteredData: [],
+    };
+  }
+
   componentWillMount() {
     this.props.getApiUsers();
   }
+
+  searchInputHandler = (event) => {
+    const text = event.target.value;
+
+    const results = this.props.users.filter(item =>
+      item.name.toLowerCase().includes(text.toLowerCase()) ||
+        item.username.toLowerCase().includes(text.toLowerCase()));
+
+    this.setState({
+      term: text,
+      filteredData: results,
+    });
+  };
 
   render() {
     if (this.props.checkingLogin || this.props.isLoading) {
@@ -25,7 +48,8 @@ class Employees extends Component {
 
     return (
       <div className="employees">
-        {this.props.users.map(user => (
+        <Search onChange={this.searchInputHandler} value={this.state.term} />
+        {this.state.filteredData.map(user => (
           <EmployeesItem
             key={user.id}
             userID={user.id}
