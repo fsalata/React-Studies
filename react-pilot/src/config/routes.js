@@ -10,6 +10,8 @@ import Profile from '../screens/profile';
 import Todos from '../screens/todos';
 import Posts from '../screens/posts';
 import Comments from '../screens/comments';
+import Albums from '../screens/albums';
+import Gallery from '../screens/gallery';
 
 const AppRoute = () => (
   <BrowserRouter>
@@ -23,7 +25,8 @@ const AppRoute = () => (
           <Route exact path="/perfil" component={Profile} />
           <Route exact path="/funcionarios" component={Employees} />
           <Route exact path="/todos/:id" component={Todos} />
-          <Route exact path="/albuns/:id" component={Todos} />
+          <Route exact path="/albuns/:id" component={Albums} />
+          <Route exact path="/albuns/:id/:album" component={Gallery} />
           <Route exact path="/posts/:id" component={Posts} />
           <Route exact path="/posts/:id/:post" component={Comments} />
         </Switch>

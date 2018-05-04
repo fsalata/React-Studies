@@ -4,13 +4,11 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
 
-import { getApiAlbums } from '../actions/api';
+import { getApiPhotos } from '../actions/api';
 
-import ListItem from '../components/listItem';
-
-class Albums extends Component {
+class Gallery extends Component {
   componentWillMount() {
-    this.props.getApiAlbums(this.props.match.params.id);
+    this.props.getApiPhotos(this.props.match.params.album);
   }
 
   render() {
@@ -20,41 +18,39 @@ class Albums extends Component {
 
     return (
       <div className="albums">
-        <ul className="list-group">
-          {this.props.albums.map(album => (
-            <ListItem
-              key={album.id}
-              body={album.title}
-              link={`/albuns/${this.props.match.params.id}/${album.id}`}
-            />
+        <div className="row gallery">
+          {this.props.photos.map(photo => (
+            <a href={photo.url} target="_blank">
+              <img src={photo.thumbnailUrl} alt={photo.title} className="col-xs-2" />
+            </a>
           ))}
-        </ul>
+        </div>
       </div>
     );
   }
 }
 
-Albums.propTypes = {
+Gallery.propTypes = {
   isLoading: PropTypes.bool,
   checkingLogin: PropTypes.bool,
-  getApiAlbums: PropTypes.func,
-  albums: PropTypes.array,
+  getApiPhotos: PropTypes.func,
+  photos: PropTypes.array,
   match: ReactRouterPropTypes.match,
 };
 
 const mapStateToProps = state => ({
-  albums: state.api.apiAlbumsResultData,
-  isLoading: state.api.apiAlbumsResultData.isLoading,
+  photos: state.api.apiPhotosResultData,
+  isLoading: state.api.apiPhotosResultData.isLoading,
   checkingLogin: state.loggedUser.checking,
 });
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getApiAlbums,
+      getApiPhotos,
     },
     dispatch,
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Albums);
+export default connect(mapStateToProps, mapDispatchToProps)(Gallery);

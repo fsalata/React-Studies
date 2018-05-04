@@ -132,4 +132,12 @@
 .list-group-item p {
   margin-bottom: 0;
 }
+
+.gallery {
+  justify-content: space-around;
+}
+
+.gallery img {
+  margin-bottom: 10px;
+}
 /*# sourceMappingURL=style.css.map */
