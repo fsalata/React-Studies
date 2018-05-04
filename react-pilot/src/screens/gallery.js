@@ -21,7 +21,7 @@ class Gallery extends Component {
         <div className="row gallery">
           {this.props.photos.map(photo => (
             <a href={photo.url} target="_blank">
-              <img src={photo.thumbnailUrl} alt={photo.title} className="col-xs-2" />
+              <img src={photo.thumbnailUrl} alt={photo.title} className="col" key={photo.id} />
             </a>
           ))}
         </div>
