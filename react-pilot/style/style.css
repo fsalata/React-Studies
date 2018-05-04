@@ -122,6 +122,13 @@
   color: #000;
 }
 
+.todos .btn-group a,
+.posts .btn-group a,
+.albums .btn-group a,
+.employees .btn-group a {
+  color: #fff;
+}
+
 .list-group-item p {
   margin-bottom: 0;
 }

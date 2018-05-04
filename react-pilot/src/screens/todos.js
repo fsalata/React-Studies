@@ -6,22 +6,50 @@ import ReactRouterPropTypes from 'react-router-prop-types';
 
 import { getApiToDos } from '../actions/api';
 
+import Search from '../components/search';
 import ListItem from '../components/listItem';
 
 class Todos extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      term: '',
+      filteredData: [],
+    };
+  }
+
   componentWillMount() {
     this.props.getApiToDos(this.props.match.params.id);
   }
+
+  searchInputHandler = (event) => {
+    const text = event.target.value;
+
+    const results = this.props.todos.filter(item =>
+      item.title.toLowerCase().includes(text.toLowerCase()));
+
+    this.setState({
+      term: text,
+      filteredData: results,
+    });
+  };
 
   render() {
     if (this.props.checkingLogin || this.props.isLoading) {
       return <span> carregando... </span>;
     }
 
+    const data =
+      this.state.filteredData.length > 0 && this.term !== ''
+        ? this.state.filteredData
+        : this.props.todos;
+
     return (
       <div className="todos">
+        <Search onChange={this.searchInputHandler} value={this.state.term} />
         <ul className="list-group">
-          {this.props.todos.map(todo => (
+          {data.map(todo => (
             <ListItem
               key={todo.id}
               body={todo.title}

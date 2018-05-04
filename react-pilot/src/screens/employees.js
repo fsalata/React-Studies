@@ -46,10 +46,15 @@ class Employees extends Component {
       return <Redirect to="/" />;
     }
 
+    const data =
+      this.state.filteredData.length > 0 && this.term !== ''
+        ? this.state.filteredData
+        : this.props.users;
+
     return (
       <div className="employees">
         <Search onChange={this.searchInputHandler} value={this.state.term} />
-        {this.state.filteredData.map(user => (
+        {data.map(user => (
           <EmployeesItem
             key={user.id}
             userID={user.id}
